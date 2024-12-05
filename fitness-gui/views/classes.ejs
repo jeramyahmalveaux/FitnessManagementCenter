@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classes</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a> |
+    <a href="/members">Manage Members</a> |
+    <a href="/classes">Manage Classes</a> |
+    <a href="/trainers">Manage Trainers</a>
+  </nav>
+      
+  <h1>Fitness Center Classes</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Class Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Capacity</th>
+        <th>Trainer ID</th>
+        <th>Category ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% classes.forEach(cls => { %>
+        <tr>
+          <td><%= cls.ClassID %></td>
+          <td><%= cls.ClassName %></td>
+          <td><%= cls.StartTime %></td>
+          <td><%= cls.EndTime %></td>
+          <td><%= cls.Capacity %></td>
+          <td><%= cls.TrainerID %></td>
+          <td><%= cls.CategoryID %></td>
+          <td>
+            <form action="/classes/delete" method="POST" style="display:inline;">
+              <input type="hidden" name="ClassID" value="<%= cls.ClassID %>">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <h2>Add a New Class</h2>
+  <form action="/classes/add" method="POST">
+    <label>Class Name: <select name="ClassName" required>
+        <option value="Yoga Class">Yoga Class</option>
+        <option value="Cardio Blast">Cardio Blast</option>
+        <option value="Strength Training">Strength Training</option>
+      </select>
+    </label><br>
+    <label>Start Time: <input type="time" name="StartTime" required></label><br>
+    <label>End Time: <input type="time" name="EndTime" required></label><br>
+    <label>Capacity: <input type="number" min="0" name="Capacity" required></label><br>
+    <label>Trainer ID: <input type="number" name="TrainerID" required></label><br>
+    <label>Category ID: <input type="number" min="1" max="3" name="CategoryID" required></label><br>
+    <button type="submit">Add Class</button>
+  </form>
+</body>
+</html>
